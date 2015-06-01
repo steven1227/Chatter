@@ -1,0 +1,17 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <!--<style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar/>-->
+        <!--&lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+    <!--</style>-->
+
+    <style name="editext_graybg" parent="android:Widget.EditText">
+        <item name="android:background">@drawable/editext_bg_gray</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:ems">20</item>
+        <item name="android:inputType">textEmailAddress</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
+        <item name="android:textSize">20dp</item>
+    </style>
+</resources>

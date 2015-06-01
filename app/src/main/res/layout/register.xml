@@ -1,0 +1,71 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="282dp"
+            android:layout_height="205dp"
+            android:id="@+id/imageView"
+            android:src="@drawable/logo_login"
+            android:paddingTop="5dp"
+            android:layout_centerHorizontal="true">
+
+        </ImageView>
+
+        <EditText
+            android:layout_width="329dp"
+            android:layout_height="63dp"
+            style="@style/editext_graybg"
+            android:drawableLeft="@drawable/ic_username"
+            android:id="@+id/email"
+            android:hint="Email"
+            android:layout_marginTop="10dp">
+
+        </EditText>
+
+        <EditText
+            android:layout_width="329dp"
+            android:layout_height="63dp"
+            style="@style/editext_graybg"
+            android:id="@+id/user"
+            android:drawableLeft="@drawable/ic_username"
+            android:hint="Username"
+            android:paddingLeft="15dp"
+            android:layout_marginTop="10dp"
+            android:password="true">
+        </EditText>
+
+        <EditText
+            android:layout_width="329dp"
+            android:layout_height="63dp"
+            style="@style/editext_graybg"
+            android:id="@+id/pa"
+            android:drawableLeft="@drawable/ic_pwd"
+            android:hint="Password"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:password="true">
+        </EditText>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register"
+            android:id="@+id/reg"
+            android:background="@drawable/green_btn"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#ffffffff"
+            android:layout_marginTop="10dp" />
+
+
+    </LinearLayout>
+</ScrollView>
