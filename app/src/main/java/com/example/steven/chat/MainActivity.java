@@ -50,6 +50,14 @@ public class MainActivity extends Activity implements View.OnClickListener {
         username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                    hideKeyboard(v);
+            }
+        });
+
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
                 if(!hasFocus)
                     hideKeyboard(v);
             }
@@ -126,6 +134,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                         if(parseUser!=null){
                             Intent user=new Intent(MainActivity.this,UserList.class);
                             user.putExtra("key","parseUser");
+                            UserList.user=parseUser;
                             startActivity(user);
                            // finish();
                         }else {
