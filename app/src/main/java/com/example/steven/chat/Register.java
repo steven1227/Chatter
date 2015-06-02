@@ -89,7 +89,7 @@ public class Register extends Activity implements View.OnClickListener {
                         Log.e(getClass().getName(),"hello");
                         setResult(RESULT_OK);
                         finish();
-                        Log.e(getClass().getName(), "finish???");
+
                     }
                     else
                     {

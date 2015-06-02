@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -117,13 +118,38 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 alert11.show();
             }
             else{
-                ProgressDialog dia = ProgressDialog.show(this, null, "tesing");
+                final ProgressDialog dia = ProgressDialog.show(this, null, "tesing");
+                ParseUser.logInInBackground(tempuser, temppass, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser parseUser, ParseException e) {
+                        dia.dismiss();
+                        if(parseUser!=null){
+                            Intent user=new Intent(MainActivity.this,UserList.class);
+                            user.putExtra("key","parseUser");
+                            startActivity(user);
+                           // finish();
+                        }else {
+                            AlertDialog.Builder builder1 = new AlertDialog.Builder(MainActivity.this);
+                            builder1.setMessage(e.getMessage());
+                            builder1.setPositiveButton("OK",
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int id) {
+                                            dialog.cancel();
+                                        }
+                                    });
+
+                            AlertDialog alert11 = builder1.create();
+                            alert11.show();
+                        }
+                    }
+                });
             }
         }
         else
         {
             Intent a=new Intent(this,Register.class);
             startActivityForResult(a, 10);
+
         }
     }
 }
