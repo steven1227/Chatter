@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -31,9 +33,27 @@ public class Register extends Activity implements View.OnClickListener {
         this.password=(EditText)findViewById(R.id.pa);
         this.register=(Button)findViewById(R.id.reg);
         register.setOnClickListener(this);
-
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
+        View.OnFocusChangeListener temp= new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                    hideKeyboard(v);
+            }
+        };
+        username.setOnFocusChangeListener(temp);
+        password.setOnFocusChangeListener(temp);
+        email.setOnFocusChangeListener(temp);
     }
 
+
+
+    public void hideKeyboard(View view) {
+        InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
+        inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), 0);
+    }
     @Override
     public void onClick(View v) {
         String tempuser = this.username.getText().toString();
@@ -42,7 +62,7 @@ public class Register extends Activity implements View.OnClickListener {
 
         if (tempuser.isEmpty() || temppass.isEmpty()||tempemail.isEmpty()) {
             AlertDialog.Builder builder1 = new AlertDialog.Builder(this);
-                builder1.setMessage("Fill every input");
+                builder1.setMessage("Fill out every input");
 
             builder1.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {
@@ -66,14 +86,24 @@ public class Register extends Activity implements View.OnClickListener {
                     dia.dismiss();
                     if (e == null)
                     {
-                        //UserList.user = pu;// change anotehr method
-                        //startActivity(new Intent(getApplicationContext(), UserList.class));
                         Log.e(getClass().getName(),"hello");
                         setResult(RESULT_OK);
                         finish();
+                        Log.e(getClass().getName(), "finish???");
                     }
                     else
                     {
+                        AlertDialog.Builder builder1 = new AlertDialog.Builder(Register.this);
+                        builder1.setMessage(e.getMessage());
+
+                        builder1.setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog alert11 = builder1.create();
+                        alert11.show();
                         Log.e(getClass().getName(),e.getMessage());
                         e.printStackTrace();
                     }

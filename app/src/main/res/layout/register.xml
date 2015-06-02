@@ -3,12 +3,15 @@
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".Register">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical">
 
         <ImageView
@@ -28,7 +31,8 @@
             android:drawableLeft="@drawable/ic_username"
             android:id="@+id/email"
             android:hint="Email"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="10dp"
+            android:inputType="textEmailAddress">
 
         </EditText>
 
@@ -40,8 +44,7 @@
             android:drawableLeft="@drawable/ic_username"
             android:hint="Username"
             android:paddingLeft="15dp"
-            android:layout_marginTop="10dp"
-            android:password="true">
+            android:layout_marginTop="10dp">
         </EditText>
 
         <EditText
