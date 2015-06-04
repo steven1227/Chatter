@@ -8,7 +8,7 @@
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="#ff0eed38"
+        android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp"
         android:id="@+id/chatlist"
         android:layout_alignParentTop="true"
