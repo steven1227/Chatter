@@ -48,7 +48,11 @@ public class Register extends Activity implements View.OnClickListener {
         email.setOnFocusChangeListener(temp);
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e(getClass().getName(),"are you working");
+    }
 
     public void hideKeyboard(View view) {
         InputMethodManager inputMethodManager =(InputMethodManager)getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -89,6 +93,7 @@ public class Register extends Activity implements View.OnClickListener {
                         Log.e(getClass().getName(),"hello");
                         setResult(RESULT_OK);
                         finish();
+                        Log.e(getClass().getName(), "hell2");
 
                     }
                     else

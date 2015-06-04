@@ -158,6 +158,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         {
             Intent a=new Intent(this,Register.class);
             startActivityForResult(a, 10);
+            Log.e(getClass().getName(),"are you working");
 
         }
     }
