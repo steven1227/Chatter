@@ -2,15 +2,23 @@ package com.example.steven.chat;
 
 import android.app.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+
+import java.util.ArrayList;
 
 
 public class Chat extends Activity {
+
+    private ArrayList<Conversation> converlist;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+        Intent name=getIntent();
+        Log.e("is it true?",name.getStringExtra("name"));
     }
 
 //    @Override

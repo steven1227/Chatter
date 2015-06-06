@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,8 @@ public class UserList extends Activity {
 
     private ArrayList<ParseUser> userlist;
     public static ParseUser user;
-
+    private  ListView chatlist;
+    private UserAdapter adapter;
     @Override
     protected void onResume() {
         super.onResume();
@@ -39,28 +41,22 @@ public class UserList extends Activity {
     }
 
     private void loadUserList() {
-        final ProgressDialog dia=ProgressDialog.show(this,"this is title","connecting to server");
+        Log.e(Thread.currentThread().getName(),"who are you");
+        final ProgressDialog dia=ProgressDialog.show(this,"this is title","connecting");
         ParseUser.getQuery().whereNotEqualTo("username",this.user.getUsername()).findInBackground(
                 new FindCallback<ParseUser>() {
                     @Override
                     public void done(List<ParseUser> list, ParseException e) {
+                        Log.e(Thread.currentThread().getName(),"what am I");
                         dia.dismiss();
                         if (list != null) {
                             Log.e("help", " " + list.size());
                             if (list.size() == 0) {
                                 Toast.makeText(getApplicationContext(), "Your do not have any friends now", Toast.LENGTH_SHORT).show();
                             } else {
-                                ListView chatlist=(ListView)findViewById(R.id.chatlist);
-                                userlist=new ArrayList<ParseUser>(list);
-                                chatlist.setAdapter(new UserAdapter());
-                                chatlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                        Intent a=new Intent(UserList.this,Chat.class);
-                                        startActivity(a);
-                                    }
-                                });
+                                userlist=new ArrayList<ParseUser>(list);
+                                adapter.notifyDataSetChanged();
 
                             }
 
@@ -87,6 +83,22 @@ public class UserList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_list);
 //        getActionBar().setDisplayHomeAsUpEnabled(true);
+        this.chatlist=(ListView)findViewById(R.id.chatlist);
+        userlist=new ArrayList<ParseUser>();
+        this.adapter=new UserAdapter();
+        chatlist.setAdapter(adapter);
+        chatlist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent a = new Intent(UserList.this, Chat.class);
+                a.putExtra("name",(userlist).get(position).getUsername());
+                startActivity(a);
+            }
+        });
+        Updatatask task=new Updatatask();
+        task.execute();
+
         Intent a = this.getIntent();
         Log.e("key", a.getStringExtra("key"));
         updateUserStatus(true);
@@ -157,6 +169,51 @@ public class UserList extends Activity {
                         , 0, R.drawable.arrow, 0);
             }
             return convertView;
+        }
+    }
+
+    private class Updatatask extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... params) {
+            while (true){
+                try {
+                    Log.e(Thread.currentThread().getName(),"haha");
+                    ParseUser.getQuery().whereNotEqualTo("username",user.getUsername()).findInBackground(
+                            new FindCallback<ParseUser>() {
+                                @Override
+                                public void done(List<ParseUser> list, ParseException e) {
+                                    Log.e(Thread.currentThread().getName(), "what am I");
+                                    if (list != null) {
+                                        if (list.size() == 0) {
+
+                                        } else {
+
+                                            userlist = new ArrayList<ParseUser>(list);
+                                            adapter.notifyDataSetChanged();
+                                        }
+                                    } else {
+                                        AlertDialog.Builder builder1 = new AlertDialog.Builder(UserList.this);
+                                        builder1.setMessage(e.getMessage());
+                                        builder1.setPositiveButton("OK",
+                                                new DialogInterface.OnClickListener() {
+                                                    public void onClick(DialogInterface dialog, int id) {
+                                                        dialog.cancel();
+                                                    }
+                                                });
+                                        AlertDialog alert11 = builder1.create();
+                                        alert11.show();
+                                    }
+                                }
+                            }
+                    );
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                    Log.e(Thread.currentThread().getName(),e.getMessage());
+                }
+            }
+
         }
     }
 }
