@@ -98,7 +98,6 @@ public class UserList extends Activity {
         });
         Updatatask task=new Updatatask();
         task.execute();
-
         Intent a = this.getIntent();
         Log.e("key", a.getStringExtra("key"));
         updateUserStatus(true);

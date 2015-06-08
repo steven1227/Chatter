@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+    android:paddingRight="5dp">
+
+    <LinearLayout
+        android:id="@+id/v1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="30dp"
+        android:orientation="vertical"
+        android:background="@drawable/chat_bubble_gray"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/lbl1"
+            android:layout_marginLeft="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:textColor="#3b3b3b"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/lbl2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="sd"
+            android:textColor="#3b3b3b"
+            android:textSize="15sp"
+            android:maxLines="4"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lbl3"
+        android:textColor="#7d7d7d"
+        android:text="textvdv"
+        android:textSize="14sp"
+        android:layout_alignRight="@id/v1"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp" />
+</LinearLayout>
