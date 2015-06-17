@@ -20,14 +20,15 @@ import android.widget.Toast;
 
 import com.parse.*;
 import com.parse.ParseAnalytics;
+import com.beardedhen.androidbootstrap.BootstrapButton;
 
 
 public class MainActivity extends Activity implements View.OnClickListener {
 
     private EditText password;
     private EditText username;
-    private Button login;
-    private Button signup;
+    private BootstrapButton login;
+    private BootstrapButton signup;
 
 
     @Override
@@ -37,8 +38,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
         password=(EditText)findViewById(R.id.password);
         username=(EditText)findViewById(R.id.username);
-        login=(Button)findViewById(R.id.button);
-        signup=(Button)findViewById(R.id.button2);
+        login=(BootstrapButton)findViewById(R.id.button);
+        signup=(BootstrapButton)findViewById(R.id.button2);
         login.setOnClickListener(this);
         signup.setOnClickListener(this);
         InputMethodManager imm = (InputMethodManager)getSystemService(
