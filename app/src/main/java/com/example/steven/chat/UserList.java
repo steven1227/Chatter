@@ -6,23 +6,26 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.parse.ParseUser;
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.daimajia.swipe.interfaces.SwipeAdapterInterface;
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -115,29 +118,10 @@ public class UserList extends Activity {
         super.onDestroy();
         updateUserStatus(false);
     }
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_user_list, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
 
-    private class UserAdapter extends BaseAdapter {
+
+
+    private class UserAdapter extends BaseSwipeAdapter {
         @Override
         public int getCount() {
             return userlist.size();
@@ -154,22 +138,85 @@ public class UserList extends Activity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if(convertView==null){
-                convertView=getLayoutInflater().inflate(R.layout.chatitem,null);
-            }
-            ((TextView)convertView).setText(userlist.get(position).getUsername());
-            if(userlist.get(position).getBoolean("online")) {
-                ((TextView) convertView).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_online
+        public int getSwipeLayoutResourceId(int i) {
+            return R.id.swipe;
+        }
+
+        @Override
+        public View generateView(int i, ViewGroup viewGroup) {
+            return getLayoutInflater().inflate(R.layout.chatitem, null);
+        }
+
+        @Override
+        public void fillValues(int i, View view) {
+            SwipeLayout s= (SwipeLayout)view.findViewById(R.id.swipe);
+            final int temp=i;
+            s.addSwipeListener(new SwipeLayout.SwipeListener() {
+                @Override
+                public void onStartOpen(SwipeLayout swipeLayout) {
+
+                }
+
+                @Override
+                public void onOpen(SwipeLayout swipeLayout) {
+                    Log.e("hello, i am" + temp, "i find" + getSwipeLayoutResourceId(temp));
+                }
+
+                @Override
+                public void onStartClose(SwipeLayout swipeLayout) {
+
+                }
+
+                @Override
+                public void onClose(SwipeLayout swipeLayout) {
+
+                }
+
+                @Override
+                public void onUpdate(SwipeLayout swipeLayout, int i, int i1) {
+
+                }
+
+                @Override
+                public void onHandRelease(SwipeLayout swipeLayout, float v, float v1) {
+
+                }
+            });
+            TextView t = (TextView) view.findViewById(R.id.position);
+            ImageView a=(ImageView)view.findViewById(R.id.delete);
+            a.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Log.e(v.toString(),"you click on "+temp);
+                }
+            });
+            t.setText(userlist.get(i).getUsername());
+            if (userlist.get(i).getBoolean("online")) {
+                t.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_online
+                        , 0, R.drawable.arrow, 0);
+            } else {
+                t.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_offline
                         , 0, R.drawable.arrow, 0);
             }
-            else {
-                ((TextView) convertView).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_offline
-                        , 0, R.drawable.arrow, 0);
-            }
-            return convertView;
         }
     }
+//        @Override
+//        public View getView(int position, View convertView, ViewGroup parent) {
+//            if(convertView==null){
+//                convertView=getLayoutInflater().inflate(R.layout.chatitem,null);
+//            }
+//            ((TextView)convertView).setText(userlist.get(position).getUsername());
+//            if(userlist.get(position).getBoolean("online")) {
+//                ((TextView) convertView).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_online
+//                        , 0, R.drawable.arrow, 0);
+//            }
+//            else {
+//                ((TextView) convertView).setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_offline
+//                        , 0, R.drawable.arrow, 0);
+//            }
+//            return convertView;
+//        }
+
 
     private class Updatatask extends AsyncTask<Void,Void,Void>{
 

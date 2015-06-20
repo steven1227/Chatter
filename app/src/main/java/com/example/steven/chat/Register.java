@@ -1,4 +1,5 @@
 package com.example.steven.chat;
+import com.daimajia.swipe.SwipeLayout;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -15,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 /**
  * Created by steven on 1-6-15.
@@ -27,6 +29,7 @@ public class Register extends Activity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.e(this.getClass().getName(), this.getLocalClassName());
         setContentView(R.layout.register);
         this.email=(EditText)findViewById(R.id.email);
         this.username=(EditText)findViewById(R.id.user);
@@ -46,6 +49,48 @@ public class Register extends Activity implements View.OnClickListener {
         username.setOnFocusChangeListener(temp);
         password.setOnFocusChangeListener(temp);
         email.setOnFocusChangeListener(temp);
+
+        SwipeLayout swipeLayout =  (SwipeLayout)findViewById(R.id.sample1);
+        swipeLayout.setShowMode(SwipeLayout.ShowMode.LayDown);
+
+        swipeLayout.addOnLayoutListener(new SwipeLayout.OnLayout() {
+            @Override
+            public void onLayout(SwipeLayout swipeLayout) {
+                Toast.makeText(getApplication(),"put on it",Toast.LENGTH_SHORT).show();
+            }
+        });
+        swipeLayout.addSwipeListener(new SwipeLayout.SwipeListener() {
+            @Override
+            public void onStartOpen(SwipeLayout swipeLayout) {
+                Toast.makeText(getApplication(),"who am I",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onOpen(SwipeLayout swipeLayout) {
+                Toast.makeText(getApplication(),"what am I doing",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onStartClose(SwipeLayout swipeLayout) {
+
+            }
+
+            @Override
+            public void onClose(SwipeLayout swipeLayout) {
+
+            }
+
+            @Override
+            public void onUpdate(SwipeLayout swipeLayout, int i, int i1) {
+                Log.e(this.getClass().getName(),i+" "+i1+"are you ?"+getLocalClassName());
+            }
+
+            @Override
+            public void onHandRelease(SwipeLayout swipeLayout, float v, float v1) {
+
+            }
+        });
+
     }
 
     @Override

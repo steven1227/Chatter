@@ -1,15 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipe"
     android:layout_height="wrap_content"
-    android:drawableRight="@drawable/arrow"
-    android:text="TextView"
-    android:drawableLeft="@drawable/ic_online"
-    android:drawablePadding="12dp"
-    android:padding="10dp"
+    android:layout_width="match_parent">
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="150dp"
+        android:weightSum="2"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_width="20dp"
+            android:id="@+id/delete"
+            android:layout_height="match_parent"
+            android:background="#FF0000"
+            android:src="@drawable/delete"
+            android:layout_weight="1"/>
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="match_parent"
+            android:background="#66FF33"
+            android:src="@drawable/star"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
-    android:textSize="@dimen/abc_text_size_title_material"
-    android:textColor="@android:color/tertiary_text_dark">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/position"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableRight="@drawable/arrow"
+            android:text="TextView"
+            android:drawableLeft="@drawable/ic_online"
+            android:drawablePadding="12dp"
+            android:padding="10dp"
+            android:textSize="@dimen/abc_text_size_title_material"
+            android:textColor="@android:color/tertiary_text_dark">
+        </TextView>
 
-
-</TextView>
+    </LinearLayout>
+</com.daimajia.swipe.SwipeLayout>

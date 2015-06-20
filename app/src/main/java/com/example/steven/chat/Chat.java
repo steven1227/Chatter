@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
@@ -68,6 +69,11 @@ public class Chat extends Activity {
         getActionBar().setTitle(buddy);
         hand=new Handler();
         Log.e("is it true?",name.getStringExtra("name"));
+
+
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
     }
 
     private void sendMessage() {
